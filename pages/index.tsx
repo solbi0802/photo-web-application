@@ -56,7 +56,7 @@ const Home = (): JSX.Element => {
         <title>Photo Web Application</title>
         <meta name="description" content="Photo Web Application" />
       </Head>
-      <div className={styles.search_section}>
+      <header className={styles.search_section}>
         <InputGroup
           className={styles.keyword}
           placeholder="사진 검색"
@@ -72,22 +72,24 @@ const Home = (): JSX.Element => {
         >
           검색
         </Button>
-      </div>
+      </header>
       <main className={styles.main}>
         <div className={styles.image_area}>
           {item?.map((i: any, index: number) => {
             return (
-              <Image
-                className={styles.image_item}
-                key={index}
-                width={500}
-                height={500}
-                src={i.urls?.regular}
-                alt={i.name}
-                layout={'intrinsic'}
-                placeholder="blur"
-                blurDataURL={rgbDataURL(1, 1, 1)}
-              />
+              <>
+                <Image
+                  className={styles.image_item}
+                  key={index}
+                  width={500}
+                  height={500}
+                  src={i.urls?.regular}
+                  alt={i.name}
+                  layout={'intrinsic'}
+                  placeholder="blur"
+                  blurDataURL={rgbDataURL(1, 1, 1)}
+                />
+              </>
             );
           })}
         </div>

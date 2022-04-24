@@ -1,4 +1,11 @@
 .container {
+  header {
+    position: sticky;
+    padding-top: 16px;
+    top: -16px;
+    z-index: 999;
+    background-color: #fff;
+  }
   .search_section {
     display: flex;
     justify-content: center;
