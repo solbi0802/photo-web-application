@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.scss';
@@ -7,26 +7,48 @@ import store from '../store';
 
 const Home = (): JSX.Element => {
   const { photoStore } = store;
-  const [item, setItem] = useState([]);
-  const [keyword, setKeyword] = useState('');
+  const [item, setItem] = useState<any>([]);
+  const [keyword, setKeyword] = useState<string>('');
+  const [page, setPage] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    getPhotoList();
-  }, []);
+    photoList();
+  }, [page]);
 
-  const getPhotoList = async () => {
-    const result = await photoStore.getPhotoList();
-    setItem(result);
+  useEffect(() => {
+    if (loading) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) {
+            viewMore();
+          }
+        },
+        { threshold: 1 },
+      );
+      observer.observe(pageEnd.current);
+    }
+  }, [loading]);
+
+  const photoList = async (): Promise<void> => {
+    const result = await photoStore.getPhotoList(page);
+    setItem([...item, ...result]);
+    setLoading(true);
   };
 
-  const searchPhoto = async () => {
+  const searchPhoto = async (): Promise<void> => {
     if (keyword) {
       const result = await photoStore.searchPhoto(keyword);
       setItem(result.results);
     } else {
-      getPhotoList();
+      photoList();
     }
   };
+  const pageEnd = useRef<any>();
+  const viewMore = (): void => {
+    setPage((prev) => prev + 1);
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -51,20 +73,25 @@ const Home = (): JSX.Element => {
           검색
         </Button>
       </div>
-      <main className={styles.main}></main>
-      {item?.map((i: any) => {
-        return (
-          <Image
-            key={i.id}
-            width={500}
-            height={500}
-            src={i.urls?.regular}
-            alt={i.name}
-            layout={'intrinsic'}
-          />
-        );
-      })}
-      <footer className={styles.footer}></footer>
+      <main className={styles.main}>
+        {item?.map((i: any, index: number) => {
+          return (
+            <Image
+              key={index}
+              width={500}
+              height={500}
+              src={i.urls?.regular}
+              alt={i.name}
+              layout={'intrinsic'}
+            />
+          );
+        })}
+      </main>
+      <footer className={styles.footer}>
+        <button onClick={viewMore} ref={pageEnd}>
+          more
+        </button>
+      </footer>
     </div>
   );
 };
