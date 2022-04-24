@@ -2,8 +2,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.scss';
-import { Button, InputGroup } from '@blueprintjs/core';
+import { Button, InputGroup, Intent } from '@blueprintjs/core';
 import store from '../store';
+import { rgbDataURL } from '../utils/color';
 
 const Home = (): JSX.Element => {
   const { photoStore } = store;
@@ -64,8 +65,7 @@ const Home = (): JSX.Element => {
           }}
         />
         <Button
-          className={styles.keyword}
-          icon="search"
+          className={styles.search_btn}
           onClick={(): void => {
             searchPhoto();
           }}
@@ -74,18 +74,23 @@ const Home = (): JSX.Element => {
         </Button>
       </div>
       <main className={styles.main}>
-        {item?.map((i: any, index: number) => {
-          return (
-            <Image
-              key={index}
-              width={500}
-              height={500}
-              src={i.urls?.regular}
-              alt={i.name}
-              layout={'intrinsic'}
-            />
-          );
-        })}
+        <div className={styles.image_area}>
+          {item?.map((i: any, index: number) => {
+            return (
+              <Image
+                className={styles.image_item}
+                key={index}
+                width={500}
+                height={500}
+                src={i.urls?.regular}
+                alt={i.name}
+                layout={'intrinsic'}
+                placeholder="blur"
+                blurDataURL={rgbDataURL(1, 1, 1)}
+              />
+            );
+          })}
+        </div>
       </main>
       <footer className={styles.footer}>
         <button onClick={viewMore} ref={pageEnd}>
