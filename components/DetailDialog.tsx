@@ -32,24 +32,18 @@ interface PhotoInfo {
     exposure_time?: string;
     iso?: number;
   };
+  related_collections: [];
 }
 
 const DetailDialog = (props: Props): JSX.Element => {
   const { setShowDialog, id } = props;
   const [photoInfo, setPhotoInfo] = useState<PhotoInfo>();
-  const [collection, setCollection] = useState(null);
 
   useEffect(() => {
     if (id) {
       find();
-      relatedCollections();
     }
   }, [id]);
-  useEffect(() => {
-    if (photoInfo) {
-      relatedCollections();
-    }
-  }, [photoInfo]);
 
   const find = async (): Promise<void> => {
     try {
@@ -59,21 +53,6 @@ const DetailDialog = (props: Props): JSX.Element => {
       console.log(err.response);
     }
   };
-
-  const relatedCollections = async (): Promise<void> => {
-    try {
-      const result = await photoStore.getCollectionList(id);
-      setCollection(result);
-    } catch (err: any) {
-      console.log(err.response);
-    }
-  };
-  // const CustomDialog = styled(Dialog)(({ theme }) => ({
-  //   '& .MuiPaper-root': {
-  //     width: '100%',
-  //     height: '100%',
-  //   },
-  // }));
 
   const CustomDialogTitle = () => {
     return (
@@ -114,8 +93,8 @@ const DetailDialog = (props: Props): JSX.Element => {
           <div className={styles.detail_dialog}>
             <Image
               src={photoInfo.urls.regular}
-              width={photoInfo.width / 10}
-              height={photoInfo.height / 10}
+              width={photoInfo.width}
+              height={photoInfo.height}
               alt={photoInfo.description}
             />
             <div className={styles.info_section}>
@@ -136,7 +115,9 @@ const DetailDialog = (props: Props): JSX.Element => {
               <span>{`Dimensions ${photoInfo.width} x ${photoInfo.height} `}</span>
             </div>
             <div className={styles.related_photos}>
-              <CollectionList collection={collection?.results}></CollectionList>
+              <CollectionList
+                collection={photoInfo.related_collections?.results}
+              ></CollectionList>
             </div>
           </div>
         )}
