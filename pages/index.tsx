@@ -2,10 +2,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.scss';
-import { Button, InputGroup, Intent } from '@blueprintjs/core';
 import store from '../store';
 import { rgbDataURL } from '../utils/color';
-import DetailDialog from '../components/detail-dialog';
+import DetailDialog from '../components/DetailDialog';
 import { NextPage } from 'next';
 
 const Home: NextPage = () => {
@@ -14,7 +13,8 @@ const Home: NextPage = () => {
   const [keyword, setKeyword] = useState<string>('');
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
-  const [showDetailDialog, setShowDetailDialog] = useState(false);
+  const [showDetailDialog, setShowDetailDialog] = useState<boolean>(false);
+  const [photoId, setPhotoId] = useState<string>('');
 
   useEffect(() => {
     photoList();
@@ -50,7 +50,7 @@ const Home: NextPage = () => {
   };
   const pageEnd = useRef<any>();
   const viewMore = (): void => {
-    setPage((prev) => prev + 1);
+    setPage((prev: number) => prev + 1);
   };
 
   return (
@@ -60,21 +60,21 @@ const Home: NextPage = () => {
         <meta name="description" content="Photo Web Application" />
       </Head>
       <header className={styles.search_section}>
-        <InputGroup
+        <input
           className={styles.keyword}
           placeholder="사진 검색"
           onKeyUp={(e: any) => {
             setKeyword(e.target.value);
           }}
         />
-        <Button
+        <button
           className={styles.search_btn}
           onClick={(): void => {
             searchPhoto();
           }}
         >
           검색
-        </Button>
+        </button>
       </header>
       <main className={styles.main}>
         <div className={styles.image_area}>
@@ -83,13 +83,17 @@ const Home: NextPage = () => {
               <div key={index} className={styles.image_list}>
                 <Image
                   className={styles.image_item}
-                  width={500}
-                  height={500}
+                  width={i.width}
+                  height={i.height}
                   src={i.urls?.regular}
                   alt={i.user.username}
                   layout={'intrinsic'}
                   placeholder="blur"
                   blurDataURL={rgbDataURL(1, 1, 1)}
+                  onClick={(): void => {
+                    setPhotoId(i.id);
+                    setShowDetailDialog(true);
+                  }}
                 />
                 <div
                   className={styles.user_area}
@@ -112,11 +116,12 @@ const Home: NextPage = () => {
       </main>
       <footer className={styles.footer}>
         <button onClick={viewMore} ref={pageEnd}>
-          more
+          더보기
         </button>
       </footer>
       {showDetailDialog && (
         <DetailDialog
+          id={photoId}
           setShowDialog={(value: boolean): void => {
             setShowDetailDialog(value);
           }}

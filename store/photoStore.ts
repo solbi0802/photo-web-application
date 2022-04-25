@@ -11,6 +11,14 @@ export default class photoStore {
         return result.data;
       });
   }
+  //
+  static findById(id?: string): any {
+    return axios
+      .get(`${baseURL}/photos/${id}?client_id=${key}`)
+      .then((result) => {
+        return result.data;
+      });
+  }
   // 사진 검색
   static searchPhoto(query?: string): any {
     return axios
@@ -22,7 +30,7 @@ export default class photoStore {
   // related Collection
   static getCollectionList(id?: string): any {
     return axios
-      .get(`${baseURL}/search/collections/?client_id=${key}&id=${id}`)
+      .get(`${baseURL}/photos/${id}/related/?client_id=${key}`)
       .then((result) => {
         return result.data;
       });
