@@ -6,8 +6,9 @@ import { Button, InputGroup, Intent } from '@blueprintjs/core';
 import store from '../store';
 import { rgbDataURL } from '../utils/color';
 import DetailDialog from '../components/detail-dialog';
+import { NextPage } from 'next';
 
-const Home = (): JSX.Element => {
+const Home: NextPage = () => {
   const { photoStore } = store;
   const [item, setItem] = useState<any>([]);
   const [keyword, setKeyword] = useState<string>('');
@@ -85,13 +86,10 @@ const Home = (): JSX.Element => {
                   width={500}
                   height={500}
                   src={i.urls?.regular}
-                  alt={i.name}
+                  alt={i.user.username}
                   layout={'intrinsic'}
                   placeholder="blur"
                   blurDataURL={rgbDataURL(1, 1, 1)}
-                  onClick={(): void => {
-                    setShowDetailDialog(true);
-                  }}
                 />
                 <div
                   className={styles.user_area}
@@ -103,7 +101,7 @@ const Home = (): JSX.Element => {
                     width={32}
                     height={32}
                     src={i.user.profile_image.small}
-                    alt={''}
+                    alt={i.user.username}
                   />
                   <p>{i.user.username}</p>
                 </div>
@@ -118,7 +116,11 @@ const Home = (): JSX.Element => {
         </button>
       </footer>
       {showDetailDialog && (
-        <DetailDialog setShowDialog={setShowDetailDialog}></DetailDialog>
+        <DetailDialog
+          setShowDialog={(value: boolean): void => {
+            setShowDetailDialog(value);
+          }}
+        ></DetailDialog>
       )}
     </div>
   );
