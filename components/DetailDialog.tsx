@@ -32,7 +32,9 @@ interface PhotoInfo {
     exposure_time?: string;
     iso?: number;
   };
-  related_collections: [];
+  related_collections: {
+    results: any;
+  };
 }
 
 const DetailDialog = (props: Props): JSX.Element => {
