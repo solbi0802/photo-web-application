@@ -36,36 +36,24 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-gap: 8px;
-      grid-auto-rows: minmax(500px, auto);
+      grid-auto-rows: minmax(auto, auto);
       position: relative;
 
       :hover {
         opacity: 0.7;
-
-        .image_list {
-          position: relative;
-        }
-
         .user_area {
-          position: absolute;
           visibility: visible;
-          text-align: center;
-
-          img,
-          p {
-            top: 50%;
-            left: 50%;
-          }
-
           img {
             border-radius: 50%;
           }
 
           p {
-            display: inline-block;
             font-weight: bold;
           }
         }
+      }
+      .image_list {
+        position: relative;
       }
 
       .image_list,
@@ -79,7 +67,15 @@
       }
 
       .user_area {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        position: absolute;
+        text-align: center;
         visibility: hidden;
+        top: 100%;
+        left: 5%;
+        transform: translate(-5%, -100%);
       }
     }
   }

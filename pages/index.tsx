@@ -5,6 +5,7 @@ import styles from '../styles/Home.module.scss';
 import { Button, InputGroup, Intent } from '@blueprintjs/core';
 import store from '../store';
 import { rgbDataURL } from '../utils/color';
+import DetailDialog from '../components/detail-dialog';
 
 const Home = (): JSX.Element => {
   const { photoStore } = store;
@@ -12,6 +13,7 @@ const Home = (): JSX.Element => {
   const [keyword, setKeyword] = useState<string>('');
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
+  const [showDetailDialog, setShowDetailDialog] = useState(false);
 
   useEffect(() => {
     photoList();
@@ -87,8 +89,16 @@ const Home = (): JSX.Element => {
                   layout={'intrinsic'}
                   placeholder="blur"
                   blurDataURL={rgbDataURL(1, 1, 1)}
+                  onClick={(): void => {
+                    setShowDetailDialog(true);
+                  }}
                 />
-                <div className={styles.user_area}>
+                <div
+                  className={styles.user_area}
+                  onClick={(): void => {
+                    window.open(`${i.user.links.html}`);
+                  }}
+                >
                   <Image
                     width={32}
                     height={32}
@@ -107,6 +117,9 @@ const Home = (): JSX.Element => {
           more
         </button>
       </footer>
+      {showDetailDialog && (
+        <DetailDialog setShowDialog={setShowDetailDialog}></DetailDialog>
+      )}
     </div>
   );
 };
