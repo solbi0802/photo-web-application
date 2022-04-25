@@ -77,10 +77,9 @@ const Home = (): JSX.Element => {
         <div className={styles.image_area}>
           {item?.map((i: any, index: number) => {
             return (
-              <>
+              <div key={index} className={styles.image_list}>
                 <Image
                   className={styles.image_item}
-                  key={index}
                   width={500}
                   height={500}
                   src={i.urls?.regular}
@@ -89,7 +88,16 @@ const Home = (): JSX.Element => {
                   placeholder="blur"
                   blurDataURL={rgbDataURL(1, 1, 1)}
                 />
-              </>
+                <div className={styles.user_area}>
+                  <Image
+                    width={32}
+                    height={32}
+                    src={i.user.profile_image.small}
+                    alt={''}
+                  />
+                  <p>{i.user.username}</p>
+                </div>
+              </div>
             );
           })}
         </div>

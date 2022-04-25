@@ -6,12 +6,13 @@
     z-index: 999;
     background-color: #fff;
   }
+
   .search_section {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px 20px;
-    
+
     .keyword input {
       width: 100%;
       padding: 0.25rem 1rem;
@@ -21,8 +22,8 @@
 
     .search_btn {
       margin-left: 4px;
-      background-color: rgba(0,118,255,.9);
-      border: 1px solid rgba(0,118,255,.9);
+      background-color: rgba(0, 118, 255, .9);
+      border: 1px solid rgba(0, 118, 255, .9);
       border-radius: 8px;
       color: #fff;
       padding: 0.25rem 1rem;
@@ -34,13 +35,51 @@
     .image_area {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-gap: 16px;
+      grid-gap: 8px;
       grid-auto-rows: minmax(500px, auto);
+      position: relative;
 
+      :hover {
+        opacity: 0.7;
+
+        .image_list {
+          position: relative;
+        }
+
+        .user_area {
+          position: absolute;
+          visibility: visible;
+          text-align: center;
+
+          img,
+          p {
+            top: 50%;
+            left: 50%;
+          }
+
+          img {
+            border-radius: 50%;
+          }
+
+          p {
+            display: inline-block;
+            font-weight: bold;
+          }
+        }
+      }
+
+      .image_list,
       .image_item {
         width: 100%;
         height: 100%;
+      }
+
+      .image_item {
         cursor: pointer;
+      }
+
+      .user_area {
+        visibility: hidden;
       }
     }
   }
