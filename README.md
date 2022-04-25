@@ -18,9 +18,11 @@
  
  
 ### 디렉토리 구조
-├── components 
-├── pages 
+```
+├── components
+├── pages  
 ├── public 
-├── store 
+├── store  
 ├── styles 
-└──utils
+└──utils 
+```
