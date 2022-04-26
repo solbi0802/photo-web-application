@@ -7,19 +7,25 @@
 
     .collection_area {
         color: #767676;
+
         h2 {
             color: #111;
             margin-top: 8px;
             margin-bottom: 0;
         }
+
         .collection_list {
             .preview {
                 display: grid;
                 grid-template-columns: repeat(1, 1fr);
                 grid-gap: 8px;
-     
-                img:hover {
-                    opacity: 0.7;
+
+                img {
+                    width: 100%;
+                    height: auto;
+                    :hover {
+                        opacity: 0.7;
+                    }
                 }
                 .preview_image {
                     cursor: pointer;
@@ -27,7 +33,7 @@
                     height: 100%;
                 }
             }
-        
+
             .info_section {
                 margin-top: 8px;
                 margin-bottom: 0;

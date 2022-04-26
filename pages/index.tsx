@@ -54,6 +54,12 @@ const Home: NextPage = () => {
     setPage((prev: number) => prev + 1);
   };
 
+  // 엔터키 입력했을 때도 검색 동작하도록 이벤트 처리
+  const enterKeyEvent = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (e.keyCode === 13) {
+      searchPhoto();
+    }
+  };
   return (
     <div className={styles.container}>
       <Head>
@@ -65,8 +71,9 @@ const Home: NextPage = () => {
           className={styles.keyword}
           fullWidth
           placeholder="사진 검색"
-          onKeyUp={(e: any) => {
+          onKeyUp={(e: any): void => {
             setKeyword(e.target.value);
+            enterKeyEvent(e);
           }}
         />
         <Button
