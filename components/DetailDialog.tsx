@@ -9,7 +9,7 @@ import {
   styled,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import styles from './Dialog.module.scss';
+import styles from '../styles/Dialog.module.scss';
 import Image from 'next/image';
 import CollectionList from './CollectionList';
 interface Props {

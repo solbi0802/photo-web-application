@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
 import Image from 'next/image';
-import styles from './Collection.module.scss';
+import styles from '../styles/Collection.module.scss';
 import { rgbDataURL } from '../utils/color';
 
 interface Props {
