@@ -1,5 +1,5 @@
 .container {
-    p {
+    h3 {
         font-size: 18px;
         padding-bottom: 8px;
         font-weight: 400;
@@ -15,18 +15,26 @@
         }
 
         .collection_list {
-            .preview {
+            .collection_preview {
                 display: grid;
-                grid-template-columns: repeat(1, 1fr);
+                grid-template-columns: repeat(3, 1fr);
                 grid-gap: 8px;
+                border-radius: 2px;
+
+                :nth-child(1) {
+                    grid-column: 1 / span 2;
+                    grid-row: 1 / span 2;
+                }
 
                 img {
                     width: 100%;
                     height: auto;
+
                     :hover {
                         opacity: 0.7;
                     }
                 }
+
                 .preview_image {
                     cursor: pointer;
                     width: 100%;
@@ -35,29 +43,46 @@
             }
 
             .info_section {
-                margin-top: 8px;
-                margin-bottom: 0;
-                display: flex;
-                flex-direction: row;
 
-                :nth-child(2) {
-                    margin-left: 4px;
+                h2,
+                p {
+                    display: inline-block;
                 }
 
-                a:hover {
-                    text-decoration: underline;
+                .info_text {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    align-items: baseline;
+
+                    p:nth-child(2) {
+                        margin-left: 2px;
+                    }
+
+                    a:hover {
+                        opacity: 0.7;
+                        text-decoration: underline;
+                    }
                 }
             }
 
-            .tag {
-                border-radius: 2px;
-                display: inline-block;
-                font-size: 14px;
-                line-height: 26px;
-                padding-left: 8px;
-                padding-right: 8px;
-                background-color: #eee;
-                margin-left: 8px;
+            .tag_section {
+
+                p:nth-child(2),
+                p:nth-child(3) {
+                    margin-left: 8px;
+                }
+
+                p {
+                    border-radius: 2px;
+                    display: inline-block;
+                    font-size: 14px;
+                    line-height: 26px;
+                    padding-left: 8px;
+                    padding-right: 8px;
+                    background-color: #eee;
+
+                }
 
                 a:hover {
                     opacity: 0.7;
