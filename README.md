@@ -13,7 +13,7 @@
   4. yarn dev (실행)
   ```
  
-### [미리보기](https://photo-web-application-n3qdg732k-solbi9382.vercel.app)
+### [미리보기](https://photo-web-application-iakigpwdz-solbi9382.vercel.app)
  위 링크를 통해서 빌드된 프로젝트를 확인할 수 있습니다.
  
  
