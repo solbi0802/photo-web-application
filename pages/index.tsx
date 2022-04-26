@@ -6,6 +6,7 @@ import store from '../store';
 import { rgbDataURL } from '../utils/color';
 import DetailDialog from '../components/DetailDialog';
 import { NextPage } from 'next';
+import { Button, TextField } from '@mui/material';
 
 const Home: NextPage = () => {
   const { photoStore } = store;
@@ -60,21 +61,23 @@ const Home: NextPage = () => {
         <meta name="description" content="Photo Web Application" />
       </Head>
       <header className={styles.search_section}>
-        <input
+        <TextField
           className={styles.keyword}
+          fullWidth
           placeholder="사진 검색"
           onKeyUp={(e: any) => {
             setKeyword(e.target.value);
           }}
         />
-        <button
+        <Button
+          variant="contained"
           className={styles.search_btn}
           onClick={(): void => {
             searchPhoto();
           }}
         >
           검색
-        </button>
+        </Button>
       </header>
       <main className={styles.main}>
         <div className={styles.image_area}>
@@ -115,9 +118,9 @@ const Home: NextPage = () => {
         </div>
       </main>
       <footer className={styles.footer}>
-        <button onClick={viewMore} ref={pageEnd}>
+        <Button variant="contained" onClick={viewMore} ref={pageEnd}>
           더보기
-        </button>
+        </Button>
       </footer>
       {showDetailDialog && (
         <DetailDialog

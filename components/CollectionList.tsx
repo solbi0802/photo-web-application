@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import styles from './Collection.module.scss';
 import { rgbDataURL } from '../utils/color';
-import DetailDialog from './DetailDialog';
-import { userInfo } from 'os';
 
 interface Props {
   collection: any[];
@@ -11,9 +9,6 @@ interface Props {
 
 const CollectionList = (props: Props): JSX.Element => {
   const { collection } = props;
-  const [photoId, setPhotoId] = useState<string>('');
-  const [showDetailDialog, setShowDetailDialog] = useState<boolean>(false);
-
   return (
     <div className={styles.container}>
       <p>Related collections</p>
@@ -24,20 +19,21 @@ const CollectionList = (props: Props): JSX.Element => {
               {c.preview_photos.map((preview: any, index: number) => {
                 if (index < 3) {
                   return (
-                    <Image
-                      key={index}
-                      className={styles.collection_image}
-                      width={300}
-                      height={300}
-                      src={preview?.urls?.regular}
-                      alt={c.alt_description}
-                      layout={'intrinsic'}
-                      placeholder="blur"
-                      blurDataURL={rgbDataURL(1, 1, 1)}
-                      onClick={(): void => {
-                        window.open(`${c.links.html}`);
-                      }}
-                    />
+                    <div key={index} className={styles.preview}>
+                      <Image
+                        className={styles.preview_image}
+                        width={index === 0 ? 300 : 120}
+                        height={index === 0 ? 300 : 150}
+                        src={preview?.urls?.regular}
+                        alt={c.alt_description}
+                        layout={'intrinsic'}
+                        placeholder="blur"
+                        blurDataURL={rgbDataURL(1, 1, 1)}
+                        onClick={(): void => {
+                          window.open(`${c.links.html}`);
+                        }}
+                      />
+                    </div>
                   );
                 }
               })}
